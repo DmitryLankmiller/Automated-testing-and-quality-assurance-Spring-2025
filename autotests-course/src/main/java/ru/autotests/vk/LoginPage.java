@@ -11,6 +11,7 @@ public class LoginPage extends BasePage {
     private static final SelenideElement loginInput = $(By.id("field_email"));
     private static final SelenideElement passwordInput = $(By.id("field_password"));
     private static final SelenideElement loginBtn = $(By.xpath(".//input[@data-l=\"t,sign_in\"]"));
+    private static final SelenideElement loginFailedMessage = $(By.xpath(".//*[contains(@class,\"login_error\")]"));
 
     @Override
     void checkPage() {
@@ -35,6 +36,14 @@ public class LoginPage extends BasePage {
 
     public void clickLoginBtn() {
         loginBtn.click();
+    }
+
+    public SelenideElement loginFailedMessage() {
+        return loginFailedMessage;
+    }
+
+    public String getLoginFailedMessageText() {
+        return loginFailedMessage.innerText();
     }
 
 }
