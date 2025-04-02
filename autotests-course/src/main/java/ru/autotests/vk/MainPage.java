@@ -9,7 +9,7 @@ import com.codeborne.selenide.SelenideElement;
 
 public class MainPage extends BasePage {
     private static final SelenideElement feed = $(By.id("hook_Block_MainFeedsContent"));
-    private static final SelenideElement profileBtn = $(By.xpath("data-l=\"t,userPage\""));
+    private static final SelenideElement profileBtn = $(By.xpath(".//*[@data-l=\"t,userPage\"]"));
 
     @Override
     void checkPage() {
