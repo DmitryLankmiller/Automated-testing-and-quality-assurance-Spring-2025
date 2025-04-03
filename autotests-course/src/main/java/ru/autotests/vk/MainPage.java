@@ -16,7 +16,8 @@ public class MainPage extends BasePage {
     private static final SelenideElement logoutBtn = $(By.xpath(".//*[@data-l=\"t,logout\"]"));
     private static final SelenideElement confirmLogoutMenu = $(
             By.xpath(".//*[@id=\"hook_Form_PopLayerLogoffUserModalForm\"]"));
-    private static final SelenideElement confirmLogoutBtn = $(By.xpath(".//*[@name=\"logoff.confirm_not_decorate\"]"));
+    private static final SelenideElement confirmLogoutBtn = $x((".//*[@name=\"logoff.confirm_not_decorate\"]"));
+    private static final SelenideElement messagesBtn = $x(".//*[@id=\"msg_toolbar_button\"]");
 
     @Override
     void checkPage() {
