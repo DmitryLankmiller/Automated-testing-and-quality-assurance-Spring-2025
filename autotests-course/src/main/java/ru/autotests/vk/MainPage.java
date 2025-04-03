@@ -13,6 +13,7 @@ public class MainPage extends BasePage {
     private static final SelenideElement profileDropdownMenu = $(
             By.xpath(".//button[@aria-controls=\"user-dropdown-menu\"]"));
     private static final SelenideElement logoutBtn = $(By.xpath(".//*[@data-l=\"t,logout\"]"));
+    private static final SelenideElement confirmLogoutBtn = $(By.xpath(".//*[@name=\"logoff.confirm_not_decorate\"]"));
 
     @Override
     void checkPage() {
@@ -32,9 +33,14 @@ public class MainPage extends BasePage {
         logoutBtn.click();
     }
 
+    public void confirmLogout() {
+        confirmLogoutBtn.click();
+    }
+
     public LoginPage logout() {
         expandDropdownMenu();
         clickLogoutBtn();
+        confirmLogout();
         return new LoginPage();
     }
 
