@@ -1,7 +1,5 @@
 package ru.autotests.vk;
 
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.text;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.stream.Stream;
@@ -21,8 +19,8 @@ public class OpenChatTest extends BaseTest {
         msgPage.openChatByUserName(friendName);
         assertAll(
                 "Chat has openned",
-                () -> msgPage.messageInput().shouldBe(enabled),
-                () -> msgPage.messageName().shouldHave(text(friendName)));
+                () -> msgPage.messageInputShouldBeEnabled(),
+                () -> msgPage.messageNameShouldHaveText(friendName));
 
     }
 

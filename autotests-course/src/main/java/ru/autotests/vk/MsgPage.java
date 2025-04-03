@@ -1,5 +1,6 @@
 package ru.autotests.vk;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
@@ -29,12 +30,12 @@ public class MsgPage extends BasePage {
         chatByUserName(userName).click();
     }
 
-    public SelenideElement messageInput() {
-        return msgInput;
+    public void messageInputShouldBeEnabled() {
+        msgInput.shouldBe(enabled);
     }
 
-    public SelenideElement messageName() {
-        return msgName;
+    public void messageNameShouldHaveText(String txt) {
+        msgName.shouldHave(text(txt));
     }
 
     public void writeMessage(String msg) {
@@ -54,8 +55,8 @@ public class MsgPage extends BasePage {
         return messages;
     }
 
-    public SelenideElement lastMessage() {
-        return messages.last();
+    public SelenideElement lastMessageShouldHaveText(String txt) {
+        return messages.last().shouldHave(text(txt));
     }
 
     public SelenideElement nthMessage(int nth) {

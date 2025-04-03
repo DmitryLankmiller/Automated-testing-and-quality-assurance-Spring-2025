@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasePage {
@@ -26,16 +27,16 @@ public class LoginPage extends BasePage {
         return new MainPage();
     }
 
-    public SelenideElement loginInput() {
-        return loginInput;
+    public void loginInputShouldBeEnabled() {
+        loginInput.shouldBe(enabled);
     }
 
     public void writeLogin(String login) {
         loginInput.setValue(login);
     }
 
-    public SelenideElement passwordInput() {
-        return passwordInput;
+    public void passwordInputShouldBeEnabled() {
+        passwordInput.shouldBe(enabled);
     }
 
     public void writePassword(String password) {
@@ -46,8 +47,8 @@ public class LoginPage extends BasePage {
         loginBtn.click();
     }
 
-    public SelenideElement loginFailedMessage() {
-        return loginFailedMessage;
+    public void loginFailedMessageShouldBeVisible() {
+        loginFailedMessage.shouldBe(visible);
     }
 
     public String getLoginFailedMessageText() {

@@ -17,8 +17,8 @@ public class LogoutTest extends BaseTest {
     public void shouldLogoutCorrectly(String email, String password) {
         var mainPage = new LoginPage().loginByEmail(email, password);
         var loginPage = mainPage.logout();
-        loginPage.loginInput().shouldBe(enabled);
-        loginPage.passwordInput().shouldBe(enabled);
+        loginPage.loginInputShouldBeEnabled();
+        loginPage.passwordInputShouldBeEnabled();
     }
 
     private static Stream<Arguments> emailsAndPasswords() {

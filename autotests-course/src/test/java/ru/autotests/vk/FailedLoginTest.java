@@ -1,6 +1,5 @@
 package ru.autotests.vk;
 
-import static com.codeborne.selenide.Condition.visible;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
@@ -19,7 +18,7 @@ public class FailedLoginTest extends BaseTest {
         loginPage.writeLogin(email);
         loginPage.writePassword(password);
         loginPage.clickLoginBtn();
-        loginPage.loginFailedMessage().shouldBe(visible);
+        loginPage.loginFailedMessageShouldBeVisible();
         assertEquals(expectedMessage, loginPage.getLoginFailedMessageText());
     }
 
