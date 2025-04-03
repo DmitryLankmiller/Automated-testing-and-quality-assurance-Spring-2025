@@ -1,10 +1,11 @@
 package ru.autotests.vk;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-
 import org.openqa.selenium.By;
 
+import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.SelenideElement;
 
 public class MainPage extends BasePage {
@@ -13,6 +14,8 @@ public class MainPage extends BasePage {
     private static final SelenideElement profileDropdownMenu = $(
             By.xpath(".//button[@aria-controls=\"user-dropdown-menu\"]"));
     private static final SelenideElement logoutBtn = $(By.xpath(".//*[@data-l=\"t,logout\"]"));
+    private static final SelenideElement confirmLogoutMenu = $(
+            By.xpath(".//*[@id=\"hook_Form_PopLayerLogoffUserModalForm\"]"));
     private static final SelenideElement confirmLogoutBtn = $(By.xpath(".//*[@name=\"logoff.confirm_not_decorate\"]"));
 
     @Override
@@ -27,14 +30,21 @@ public class MainPage extends BasePage {
 
     public void expandDropdownMenu() {
         profileDropdownMenu.click();
+        logoutBtn.shouldBe(enabled);
     }
 
     public void clickLogoutBtn() {
         logoutBtn.click();
+        confirmLogoutMenu.shouldBe(visible);
+        confirmLogoutBtn.shouldBe(enabled);
     }
 
     public void confirmLogout() {
-        confirmLogoutBtn.click();
+        ClickOptions options = ClickOptions
+                .withOffset(
+                        confirmLogoutBtn.getRect().width / 2,
+                        confirmLogoutBtn.getRect().height / 2);
+        confirmLogoutBtn.click(options);
     }
 
     public LoginPage logout() {
