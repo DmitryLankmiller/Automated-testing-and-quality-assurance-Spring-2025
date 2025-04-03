@@ -11,7 +11,9 @@ import com.codeborne.selenide.SelenideElement;
 public class MsgPage extends BasePage {
     private static final SelenideElement msgApp = $x(".//msg-app");
     private static final SelenideElement msgInput = $x(".//msg-input");
+    private static final SelenideElement sendMessageBtn = $x(".//*[@role=\"toolbar\"]//*[@data-l=\"t,sendButton\"]");
     private static final SelenideElement msgName = $x(".//msg-name");
+    private static final ElementsCollection messages = $$x(".//*[@data-tsid=\"message_text\"]");
     private static final ElementsCollection chats = $$x(".//msg-chats-list-item");
 
     private static SelenideElement chatByUserName(String userName) {
@@ -33,6 +35,31 @@ public class MsgPage extends BasePage {
 
     public SelenideElement messageName() {
         return msgName;
+    }
+
+    public void writeMessage(String msg) {
+        msgInput.sendKeys(msg);
+    }
+
+    public void clickSendMessage() {
+        sendMessageBtn.click();
+    }
+
+    public void sendMessage(String msg) {
+        writeMessage(msg);
+        clickSendMessage();
+    }
+
+    public ElementsCollection messages() {
+        return messages;
+    }
+
+    public SelenideElement lastMessage() {
+        return messages.last();
+    }
+
+    public SelenideElement nthMessage(int nth) {
+        return messages.get(nth);
     }
 
 }
