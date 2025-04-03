@@ -26,8 +26,16 @@ public class LoginPage extends BasePage {
         return new MainPage();
     }
 
+    public SelenideElement loginInput() {
+        return loginInput;
+    }
+
     public void writeLogin(String login) {
         loginInput.setValue(login);
+    }
+
+    public SelenideElement passwordInput() {
+        return passwordInput;
     }
 
     public void writePassword(String password) {
