@@ -10,6 +10,9 @@ import com.codeborne.selenide.SelenideElement;
 public class MainPage extends BasePage {
     private static final SelenideElement feed = $(By.id("hook_Block_MainFeedsContent"));
     private static final SelenideElement profileBtn = $(By.xpath(".//*[@data-l=\"t,userPage\"]"));
+    private static final SelenideElement profileDropdownMenu = $(
+            By.xpath(".//button[@aria-controls=\"user-dropdown-menu\"]"));
+    private static final SelenideElement logoutBtn = $(By.xpath(".//*[@data-l=\"t,logout\"]"));
 
     @Override
     void checkPage() {
@@ -19,6 +22,20 @@ public class MainPage extends BasePage {
 
     public String getUserName() {
         return profileBtn.getText();
+    }
+
+    public void expandDropdownMenu() {
+        profileDropdownMenu.click();
+    }
+
+    public void clickLogoutBtn() {
+        logoutBtn.click();
+    }
+
+    public LoginPage logout() {
+        expandDropdownMenu();
+        clickLogoutBtn();
+        return new LoginPage();
     }
 
 }
