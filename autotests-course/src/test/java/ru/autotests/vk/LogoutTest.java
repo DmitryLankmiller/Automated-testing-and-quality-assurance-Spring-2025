@@ -12,7 +12,7 @@ public class LogoutTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("emailsAndPasswords")
-    public void shouldFaileLoginWithIncorrectPassword(String email, String password) {
+    public void shouldLogoutCorrectly(String email, String password) {
         var mainPage = new LoginPage().loginByEmail(email, password);
         var loginPage = mainPage.logout();
         loginPage.loginInput().shouldBe(enabled);
