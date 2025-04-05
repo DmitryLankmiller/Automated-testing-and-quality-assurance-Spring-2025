@@ -1,13 +1,11 @@
 package ru.autotests.vk;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.SelenideElement;
 
 public class MainPage extends BasePage {
@@ -31,29 +29,23 @@ public class MainPage extends BasePage {
         return profileBtn.getText();
     }
 
-    public void expandDropdownMenu() {
+    public MainPage expandProfileDropdownMenu() {
         profileDropdownMenu.click();
-        logoutBtn.shouldBe(enabled);
+        return this;
     }
 
-    public void clickLogoutBtn() {
+    public MainPage clickLogoutBtn() {
         logoutBtn.click();
+        return this;
+    }
+
+    public MainPage confirmLogoutMenuShouldBeVisible() {
         confirmLogoutMenu.shouldBe(visible);
-        confirmLogoutBtn.shouldBe(enabled);
+        return this;
     }
 
-    public void confirmLogout() {
-        ClickOptions options = ClickOptions
-                .withOffset(
-                        confirmLogoutBtn.getRect().width / 2,
-                        confirmLogoutBtn.getRect().height / 2);
-        confirmLogoutBtn.click(options);
-    }
-
-    public LoginPage logout() {
-        expandDropdownMenu();
-        clickLogoutBtn();
-        confirmLogout();
+    public LoginPage confirmLogout() {
+        confirmLogoutBtn.click();
         return new LoginPage();
     }
 

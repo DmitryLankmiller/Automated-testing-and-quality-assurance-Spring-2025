@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -16,8 +16,8 @@ public class LoginPage extends BasePage {
 
     @Override
     void checkPage() {
-        loginInput.shouldBe(enabled);
-        passwordInput.shouldBe(enabled);
+        loginInput.shouldBe(clickable);
+        passwordInput.shouldBe(clickable);
     }
 
     public MainPage loginByEmail(String email, String password) {
@@ -27,28 +27,33 @@ public class LoginPage extends BasePage {
         return new MainPage();
     }
 
-    public void loginInputShouldBeEnabled() {
-        loginInput.shouldBe(enabled);
+    public LoginPage loginInputShouldBeEnabled() {
+        loginInput.shouldBe(clickable);
+        return this;
     }
 
-    public void writeLogin(String login) {
+    public LoginPage writeLogin(String login) {
         loginInput.setValue(login);
+        return this;
     }
 
-    public void passwordInputShouldBeEnabled() {
-        passwordInput.shouldBe(enabled);
+    public LoginPage passwordInputShouldBeEnabled() {
+        passwordInput.shouldBe(clickable);
+        return this;
     }
 
-    public void writePassword(String password) {
+    public LoginPage writePassword(String password) {
         passwordInput.setValue(password);
+        return this;
     }
 
     public void clickLoginBtn() {
         loginBtn.click();
     }
 
-    public void loginFailedMessageShouldBeVisible() {
+    public LoginPage loginFailedMessageShouldBeVisible() {
         loginFailedMessage.shouldBe(visible);
+        return this;
     }
 
     public String getLoginFailedMessageText() {
