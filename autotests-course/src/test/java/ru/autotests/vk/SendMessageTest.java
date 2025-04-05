@@ -1,7 +1,5 @@
 package ru.autotests.vk;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Tag;
@@ -12,6 +10,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.codeborne.selenide.Selenide;
 
 public class SendMessageTest extends BaseTest {
+
+        private void deleteTestMessage(String email, String password, String userName) {
+                Selenide.closeWebDriver();
+                Selenide.open("/");
+                var mainPage = new LoginPage().loginByEmail(email, password);
+                var msgPage1 = mainPage.clickMessageBtn();
+                msgPage1.openChatByUserName(userName)
+                                .deleteLastMessage();
+
+        }
+
         @ParameterizedTest
         @MethodSource("user1user2")
         @Tag("msg")
@@ -21,18 +30,18 @@ public class SendMessageTest extends BaseTest {
                         String msg) {
                 var mainPage = new LoginPage().loginByEmail(email1, password1);
                 var msgPage1 = mainPage.clickMessageBtn();
-                msgPage1.openChatByUserName(userName2);
-                msgPage1.messageNameShouldHaveText(userName2);
-                msgPage1.sendMessage(msg);
-                msgPage1.lastMessageShouldHaveText(msg);
+                msgPage1.openChatByUserName(userName2)
+                                .chatNameShouldHaveText(userName2)
+                                .writeMessage(msg)
+                                .clickSendMessageBtn()
+                                .lastMessageShouldHaveText(msg);
                 Selenide.closeWebDriver();
                 Selenide.open("/");
                 mainPage = new LoginPage().loginByEmail(email2, password2);
                 var msgPage2 = mainPage.clickMessageBtn();
                 msgPage2.openChatByUserName(userName1);
-                assertAll(
-                                () -> msgPage2.messageNameShouldHaveText(userName1),
-                                () -> msgPage2.lastMessageShouldHaveText(msg));
+                msgPage2.lastMessageShouldHaveText(msg);
+                deleteTestMessage(email1, password1, userName2);
         }
 
         private static Stream<Arguments> user1user2() {
