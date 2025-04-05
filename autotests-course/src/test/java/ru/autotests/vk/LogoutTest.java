@@ -1,7 +1,5 @@
 package ru.autotests.vk;
 
-import static com.codeborne.selenide.Condition.enabled;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Tag;
@@ -14,9 +12,14 @@ public class LogoutTest extends BaseTest {
     @ParameterizedTest
     @MethodSource("emailsAndPasswords")
     @Tag("auth")
+    @Tag("logout")
     public void shouldLogoutCorrectly(String email, String password) {
         var mainPage = new LoginPage().loginByEmail(email, password);
-        var loginPage = mainPage.logout();
+        var loginPage = mainPage
+                .expandProfileDropdownMenu()
+                .clickLogoutBtn()
+                .confirmLogoutMenuShouldBeVisible()
+                .confirmLogout();
         loginPage.loginInputShouldBeEnabled();
         loginPage.passwordInputShouldBeEnabled();
     }
