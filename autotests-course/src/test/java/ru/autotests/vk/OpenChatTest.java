@@ -20,7 +20,7 @@ public class OpenChatTest extends BaseTest {
         assertAll(
                 "Chat has openned",
                 () -> msgPage.messageInputShouldBeEnabled(),
-                () -> msgPage.messageNameShouldHaveText(friendName));
+                () -> msgPage.chatNameShouldHaveText(friendName));
 
     }
 
