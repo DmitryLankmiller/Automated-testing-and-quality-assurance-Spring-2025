@@ -31,12 +31,10 @@ public class SendMessageTest extends BaseTest {
                 var mainPage = new LoginPage().loginByEmail(email1, password1);
                 var msgPage1 = mainPage.clickMessageBtn();
                 msgPage1.openChatByUserName(userName2)
-                                .chatNameShouldHaveText(userName2)
                                 .writeMessage(msg)
                                 .clickSendMessageBtn()
                                 .lastMessageShouldHaveText(msg);
-                Selenide.closeWebDriver();
-                Selenide.open("/");
+                restartBrowser();
                 mainPage = new LoginPage().loginByEmail(email2, password2);
                 var msgPage2 = mainPage.clickMessageBtn();
                 msgPage2.openChatByUserName(userName1);

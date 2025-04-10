@@ -20,6 +20,7 @@ public class MsgPage extends BasePage {
     private static final By confirmDeleteBtn = By.xpath(".//*[@data-tsid=\"confirm-primary\"]");
     private static final By messages = By.xpath(".//*[@data-tsid=\"message_text\"]");
     private static final By chats = By.xpath(".//msg-chats-list-item");
+    private static final By welcomeChatText = By.xpath(".//*[@class=\"welcome-chat-text-okmsg\"]");
 
     private static SelenideElement chatByUserName(String userName) {
         return $$(chats).findBy(text(userName));
@@ -59,10 +60,35 @@ public class MsgPage extends BasePage {
         $$(messages).last().shouldHave(text(txt));
     }
 
+    public MsgPage hoverLastMessage() {
+        $$(messages).last().hover();
+        return this;
+    }
+
+    public MsgPage clickMessageMoreActionsBtn() {
+        $(msgMoreActionsBtn).click();
+        return this;
+    }
+
+    public MsgPage clickDeleteMessageBtn() {
+        $(msgActionRemoveBtn).click();
+        return this;
+    }
+
+    public MsgPage clickConfirmDeleteBtn() {
+        $(confirmDeleteBtn).click();
+        return this;
+    }
+
     public void deleteLastMessage() {
         $$(messages).last().hover();
         $(msgMoreActionsBtn).click();
         $(msgActionRemoveBtn).click();
         $(confirmDeleteBtn).click();
+    }
+
+    public MsgPage welcomeChatShouldHaveText(String text) {
+        $(welcomeChatText).shouldHave(text(text));
+        return this;
     }
 }

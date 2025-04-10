@@ -30,4 +30,10 @@ public class BaseTest {
     public void tearDown() {
         Selenide.closeWebDriver();
     }
+
+
+    public static void restartBrowser() {
+        Selenide.closeWebDriver();
+        Selenide.open("/");
+    }
 }
