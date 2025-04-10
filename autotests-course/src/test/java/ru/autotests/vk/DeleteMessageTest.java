@@ -12,7 +12,7 @@ public class DeleteMessageTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("user1user2")
-    @Tag("dev")
+    @Tag("msg")
     public void shouldDeleteMessage(
             String email1, String password1, String userName1,
             String email2, String password2, String userName2,
