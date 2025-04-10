@@ -2,55 +2,50 @@ package ru.autotests.vk;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.SelenideElement;
-
 public class MainPage extends BasePage {
-    private static final SelenideElement feed = $(By.id("hook_Block_MainFeedsContent"));
-    private static final SelenideElement profileBtn = $x((".//*[@data-l=\"t,userPage\"]"));
-    private static final SelenideElement profileDropdownMenu = $(
-            By.xpath(".//button[@aria-controls=\"user-dropdown-menu\"]"));
-    private static final SelenideElement logoutBtn = $x((".//*[@data-l=\"t,logout\"]"));
-    private static final SelenideElement confirmLogoutMenu = $(
-            By.xpath(".//*[@id=\"hook_Form_PopLayerLogoffUserModalForm\"]"));
-    private static final SelenideElement confirmLogoutBtn = $x((".//*[@name=\"logoff.confirm_not_decorate\"]"));
-    private static final SelenideElement messagesBtn = $x(".//*[@id=\"msg_toolbar_button\"]");
+    private static final By feed = By.id("hook_Block_MainFeedsContent");
+    private static final By profileBtn = By.xpath(".//*[@data-l=\"t,userPage\"]");
+    private static final By profileDropdownMenu = By.xpath(".//button[@aria-controls=\"user-dropdown-menu\"]");
+    private static final By logoutBtn = By.xpath(".//*[@data-l=\"t,logout\"]");
+    private static final By confirmLogoutMenu = By.xpath(".//*[@id=\"hook_Form_PopLayerLogoffUserModalForm\"]");
+    private static final By confirmLogoutBtn = By.xpath(".//*[@name=\"logoff.confirm_not_decorate\"]");
+    private static final By messagesBtn = By.xpath(".//*[@id=\"msg_toolbar_button\"]");
 
     @Override
     void checkPage() {
-        feed.shouldBe(visible);
-        profileBtn.shouldBe(visible);
+        $(feed).shouldBe(visible);
+        $(profileBtn).shouldBe(visible);
     }
 
     public String getUserName() {
-        return profileBtn.getText();
+        return $(profileBtn).getText();
     }
 
     public MainPage expandProfileDropdownMenu() {
-        profileDropdownMenu.click();
+        $(profileDropdownMenu).click();
         return this;
     }
 
     public MainPage clickLogoutBtn() {
-        logoutBtn.click();
+        $(logoutBtn).click();
         return this;
     }
 
     public MainPage confirmLogoutMenuShouldBeVisible() {
-        confirmLogoutMenu.shouldBe(visible);
+        $(confirmLogoutMenu).shouldBe(visible);
         return this;
     }
 
     public LoginPage confirmLogout() {
-        confirmLogoutBtn.click();
+        $(confirmLogoutBtn).click();
         return new LoginPage();
     }
 
     public MsgPage clickMessageBtn() {
-        messagesBtn.click();
+        $(messagesBtn).click();
         return new MsgPage();
     }
 

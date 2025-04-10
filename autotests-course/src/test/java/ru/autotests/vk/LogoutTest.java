@@ -26,6 +26,7 @@ public class LogoutTest extends BaseTest {
 
     private static Stream<Arguments> emailsAndPasswords() {
         return Stream.of(
-                Arguments.of("technopol33", "technopolisPassword"));
+                Arguments.of("technopol33", "technopolisPassword"),
+                Arguments.of("technopol36", "technopolisPassword"));
     }
 }
