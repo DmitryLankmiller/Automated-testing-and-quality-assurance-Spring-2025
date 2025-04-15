@@ -19,11 +19,12 @@ public class MsgPage extends BasePage {
     private static final By msgActionRemoveBtn = By.xpath(".//*[@data-l=\"t,messageActionremove\"]");
     private static final By confirmDeleteBtn = By.xpath(".//*[@data-tsid=\"confirm-primary\"]");
     private static final By messages = By.xpath(".//*[@data-tsid=\"message_text\"]");
+    private static final By contacts = By.xpath(".//*[@data-l=\"t,contact\"]");
     private static final By chats = By.xpath(".//msg-chats-list-item");
     private static final By welcomeChatText = By.xpath(".//*[@class=\"welcome-chat-text-okmsg\"]");
 
-    private static SelenideElement chatByUserName(String userName) {
-        return $$(chats).findBy(text(userName));
+    private static SelenideElement contactByUserName(String userName) {
+        return $$(contacts).findBy(text(userName));
     }
 
     @Override
@@ -32,7 +33,7 @@ public class MsgPage extends BasePage {
     }
 
     public MsgPage openChatByUserName(String userName) {
-        chatByUserName(userName).click();
+        contactByUserName(userName).click();
         return this;
     }
 
