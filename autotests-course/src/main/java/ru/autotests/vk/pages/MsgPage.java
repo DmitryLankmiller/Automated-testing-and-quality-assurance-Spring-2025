@@ -1,4 +1,4 @@
-package ru.autotests.vk;
+package ru.autotests.vk.pages;
 
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.text;

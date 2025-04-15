@@ -7,6 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import ru.autotests.vk.pages.LoginPage;
+
 public class LogoutTest extends BaseTest {
 
     @ParameterizedTest
@@ -15,13 +17,11 @@ public class LogoutTest extends BaseTest {
     @Tag("logout")
     public void shouldLogoutCorrectly(String email, String password) {
         var mainPage = new LoginPage().loginByEmail(email, password);
-        var loginPage = mainPage
-                .expandProfileDropdownMenu()
-                .clickLogoutBtn()
-                .confirmLogoutMenuShouldBeVisible()
-                .confirmLogout();
-        loginPage.loginInputShouldBeEnabled();
-        loginPage.passwordInputShouldBeEnabled();
+        var userDropDownMenu = mainPage.toolbar().expandProfileDropdownMenu();
+        var confirmLogoutWidget = userDropDownMenu.clickLogoutBtn();
+        var loginPage = confirmLogoutWidget.confirmLogout();
+        loginPage.loginInputShouldBeEnabled()
+                .passwordInputShouldBeEnabled();
     }
 
     private static Stream<Arguments> emailsAndPasswords() {

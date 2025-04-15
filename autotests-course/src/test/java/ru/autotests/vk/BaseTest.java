@@ -9,6 +9,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import ru.autotests.vk.pages.BasePage;
 
 public class BaseTest {
     @BeforeAll
@@ -19,6 +20,7 @@ public class BaseTest {
         Configuration.browserCapabilities = options;
         Configuration.baseUrl = BasePage.BASE_URL;
         Configuration.browser = "chrome";
+        // Configuration.headless = true;
     }
 
     @BeforeEach

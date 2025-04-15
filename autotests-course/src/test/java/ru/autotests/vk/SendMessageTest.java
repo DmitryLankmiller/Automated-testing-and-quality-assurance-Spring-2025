@@ -9,13 +9,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.codeborne.selenide.Selenide;
 
+import ru.autotests.vk.pages.LoginPage;
+
 public class SendMessageTest extends BaseTest {
 
         private void deleteTestMessage(String email, String password, String userName) {
                 Selenide.closeWebDriver();
                 Selenide.open("/");
                 var mainPage = new LoginPage().loginByEmail(email, password);
-                var msgPage1 = mainPage.clickMessageBtn();
+                var msgPage1 = mainPage.toolbar().clickMessageBtn();
                 msgPage1.openChatByUserName(userName)
                                 .deleteLastMessage();
 
@@ -29,14 +31,14 @@ public class SendMessageTest extends BaseTest {
                         String email2, String password2, String userName2,
                         String msg) {
                 var mainPage = new LoginPage().loginByEmail(email1, password1);
-                var msgPage1 = mainPage.clickMessageBtn();
+                var msgPage1 = mainPage.toolbar().clickMessageBtn();
                 msgPage1.openChatByUserName(userName2)
                                 .writeMessage(msg)
                                 .clickSendMessageBtn()
                                 .lastMessageShouldHaveText(msg);
                 restartBrowser();
                 mainPage = new LoginPage().loginByEmail(email2, password2);
-                var msgPage2 = mainPage.clickMessageBtn();
+                var msgPage2 = mainPage.toolbar().clickMessageBtn();
                 msgPage2.openChatByUserName(userName1);
                 msgPage2.lastMessageShouldHaveText(msg);
                 deleteTestMessage(email1, password1, userName2);

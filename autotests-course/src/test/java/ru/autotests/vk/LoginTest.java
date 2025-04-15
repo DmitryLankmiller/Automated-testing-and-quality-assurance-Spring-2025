@@ -9,6 +9,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import ru.autotests.vk.pages.LoginPage;
+import ru.autotests.vk.pages.MainPage;
+
 public class LoginTest extends BaseTest {
     @ParameterizedTest
     @Tag("auth")
@@ -19,7 +22,7 @@ public class LoginTest extends BaseTest {
         loginPage.writePassword(password);
         loginPage.clickLoginBtn();
         var mainPage = new MainPage();
-        assertEquals(userName, mainPage.getUserName());
+        assertEquals(userName, mainPage.sideNavigation().getUserName());
     }
 
     private static Stream<Arguments> emailsPasswordsUsernames() {

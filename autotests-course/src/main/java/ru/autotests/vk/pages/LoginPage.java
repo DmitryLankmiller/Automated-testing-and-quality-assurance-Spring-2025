@@ -1,4 +1,4 @@
-package ru.autotests.vk;
+package ru.autotests.vk.pages;
 
 import org.openqa.selenium.By;
 
