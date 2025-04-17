@@ -14,12 +14,12 @@ public class ToolbarElement extends ElementWithRoot {
     }
 
     public ProfileDropDownMenuElement expandProfileDropdownMenu() {
-        element(profileDropdownMenuBtn).click();
+        elementFromRoot(profileDropdownMenuBtn).click();
         return new ProfileDropDownMenuElement();
     }
 
     public MsgPage clickMessageBtn() {
-        element(messagesBtn).click();
+        elementFromRoot(messagesBtn).click();
         return new MsgPage();
     }
 

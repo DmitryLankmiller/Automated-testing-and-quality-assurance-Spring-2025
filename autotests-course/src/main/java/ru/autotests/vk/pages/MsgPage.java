@@ -1,30 +1,23 @@
 package ru.autotests.vk.pages;
 
-import static com.codeborne.selenide.Condition.clickable;
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.SelenideElement;
+import ru.autotests.vk.elements.msg.MsgChatElement;
+import ru.autotests.vk.elements.msg.MsgChatsListElement;
+import ru.autotests.vk.elements.msg.MsgMainElement;
 
 public class MsgPage extends BasePage {
     private static final By msgApp = By.xpath(".//msg-app");
-    private static final By msgInput = By.xpath(".//msg-input");
-    private static final By sendMessageBtn = By.xpath(".//*[@role=\"toolbar\"]//*[@data-l=\"t,sendButton\"]");
-    private static final By msgName = By.xpath(".//msg-name");
-    private static final By msgMoreActionsBtn = By.xpath(".//*[@data-tsid=\"more_message\"]");
-    private static final By msgActionRemoveBtn = By.xpath(".//*[@data-l=\"t,messageActionremove\"]");
-    private static final By confirmDeleteBtn = By.xpath(".//*[@data-tsid=\"confirm-primary\"]");
-    private static final By messages = By.xpath(".//*[@data-tsid=\"message_text\"]");
-    private static final By contacts = By.xpath(".//*[@data-l=\"t,contact\"]");
-    private static final By chats = By.xpath(".//msg-chats-list-item");
-    private static final By welcomeChatText = By.xpath(".//*[@class=\"welcome-chat-text-okmsg\"]");
+    private MsgMainElement msgMain;
+    private MsgChatElement chat;
+    private MsgChatsListElement chatsList;
 
-    private static SelenideElement contactByUserName(String userName) {
-        return $$(contacts).findBy(text(userName));
+    public MsgPage() {
+        this.msgMain = new MsgMainElement();
+        this.chatsList = new MsgChatsListElement();
     }
 
     @Override
@@ -32,64 +25,20 @@ public class MsgPage extends BasePage {
         $(msgApp).shouldBe(visible);
     }
 
-    public MsgPage openChatByUserName(String userName) {
-        contactByUserName(userName).click();
-        return this;
+    public MsgMainElement msgMain() {
+        return this.msgMain;
     }
 
-    public MsgPage messageInputShouldBeEnabled() {
-        $(msgInput).shouldBe(clickable);
-        return this;
+    public MsgMainElement openMsgMain() {
+        this.msgMain = chatsList.openMsgMain();
+        return this.msgMain;
     }
 
-    public MsgPage chatNameShouldHaveText(String txt) {
-        $(msgName).shouldHave(text(txt));
-        return this;
+    public MsgChatElement chat() {
+        return this.chat;
     }
 
-    public MsgPage writeMessage(String msg) {
-        $(msgInput).sendKeys(msg);
-        return this;
-    }
-
-    public MsgPage clickSendMessageBtn() {
-        $(sendMessageBtn).click();
-        return this;
-    }
-
-    public void lastMessageShouldHaveText(String txt) {
-        $$(messages).last().shouldHave(text(txt));
-    }
-
-    public MsgPage hoverLastMessage() {
-        $$(messages).last().hover();
-        return this;
-    }
-
-    public MsgPage clickMessageMoreActionsBtn() {
-        $(msgMoreActionsBtn).click();
-        return this;
-    }
-
-    public MsgPage clickDeleteMessageBtn() {
-        $(msgActionRemoveBtn).click();
-        return this;
-    }
-
-    public MsgPage clickConfirmDeleteBtn() {
-        $(confirmDeleteBtn).click();
-        return this;
-    }
-
-    public void deleteLastMessage() {
-        $$(messages).last().hover();
-        $(msgMoreActionsBtn).click();
-        $(msgActionRemoveBtn).click();
-        $(confirmDeleteBtn).click();
-    }
-
-    public MsgPage welcomeChatShouldHaveText(String text) {
-        $(welcomeChatText).shouldHave(text(text));
-        return this;
+    public MsgChatElement openChatByUserName(String userName) {
+        return this.msgMain.openChatByUserName(userName);
     }
 }

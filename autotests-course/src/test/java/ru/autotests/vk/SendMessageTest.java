@@ -10,17 +10,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.codeborne.selenide.Selenide;
 
 import ru.autotests.vk.pages.LoginPage;
+import ru.autotests.vk.steps.InitSteps;
 
 public class SendMessageTest extends BaseTest {
+        private final InitSteps initSteps = new InitSteps();
 
         private void deleteTestMessage(String email, String password, String userName) {
                 Selenide.closeWebDriver();
                 Selenide.open("/");
                 var mainPage = new LoginPage().loginByEmail(email, password);
-                var msgPage1 = mainPage.toolbar().clickMessageBtn();
-                msgPage1.openChatByUserName(userName)
-                                .deleteLastMessage();
-
+                var msgPage = mainPage.toolbar().clickMessageBtn();
+                var chat = msgPage.msgMain().openChatByUserName(userName);
+                chat.deleteLastMessage();
         }
 
         @ParameterizedTest
@@ -32,15 +33,15 @@ public class SendMessageTest extends BaseTest {
                         String msg) {
                 var mainPage = new LoginPage().loginByEmail(email1, password1);
                 var msgPage1 = mainPage.toolbar().clickMessageBtn();
-                msgPage1.openChatByUserName(userName2)
-                                .writeMessage(msg)
+                var chat1 = msgPage1.openChatByUserName(userName2);
+                chat1.writeMessage(msg)
                                 .clickSendMessageBtn()
                                 .lastMessageShouldHaveText(msg);
-                restartBrowser();
+                initSteps.restartBrowser();
                 mainPage = new LoginPage().loginByEmail(email2, password2);
                 var msgPage2 = mainPage.toolbar().clickMessageBtn();
-                msgPage2.openChatByUserName(userName1);
-                msgPage2.lastMessageShouldHaveText(msg);
+                var chat2 = msgPage2.openChatByUserName(userName1);
+                chat2.lastMessageShouldHaveText(msg);
                 deleteTestMessage(email1, password1, userName2);
         }
 

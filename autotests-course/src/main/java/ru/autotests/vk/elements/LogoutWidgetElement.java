@@ -14,7 +14,7 @@ public class LogoutWidgetElement extends ElementWithRoot {
     }
 
     public LoginPage confirmLogout() {
-        element(confirmLogoutBtn).click();
+        elementFromRoot(confirmLogoutBtn).click();
         return new LoginPage();
     }
 

@@ -11,7 +11,7 @@ public class SideNavigationElement extends ElementWithRoot {
     }
 
     public String getUserName() {
-        return element(profileBtn).getText();
+        return elementFromRoot(profileBtn).getText();
     }
 
 }

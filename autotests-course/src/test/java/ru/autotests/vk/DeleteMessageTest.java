@@ -8,9 +8,13 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import ru.autotests.vk.pages.LoginPage;
+import ru.autotests.vk.steps.DeleteMessageSteps;
+import ru.autotests.vk.steps.InitSteps;
 
 public class DeleteMessageTest extends BaseTest {
         private static final String WELCOME_CHAT_PHRASE = "В этом чате нет новых сообщений.\r\nВаше может быть первым!";
+        private final InitSteps initSteps = new InitSteps();
+        private final DeleteMessageSteps deleteMessageSteps = new DeleteMessageSteps();
 
         @ParameterizedTest
         @MethodSource("user1user2")
@@ -21,21 +25,18 @@ public class DeleteMessageTest extends BaseTest {
                         String msg) {
                 var mainPage = new LoginPage().loginByEmail(email1, password1);
                 var msgPage1 = mainPage.toolbar().clickMessageBtn();
-                msgPage1.openChatByUserName(userName2)
-                                .welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE)
+                var chat1 = msgPage1.openChatByUserName(userName2);
+                chat1.welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE)
                                 .writeMessage(msg)
-                                .clickSendMessageBtn()
-                                .lastMessageShouldHaveText(msg);
-                msgPage1.hoverLastMessage()
-                                .clickMessageMoreActionsBtn()
-                                .clickDeleteMessageBtn()
-                                .clickConfirmDeleteBtn()
-                                .welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE);
-                restartBrowser();
+                                .clickSendMessageBtn();
+                chat1.lastMessageShouldHaveText(msg);
+                deleteMessageSteps.deleteLastMessageInChat(chat1);
+                chat1.welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE);
+                initSteps.restartBrowser();
                 mainPage = new LoginPage().loginByEmail(email2, password2);
                 var msgPage2 = mainPage.toolbar().clickMessageBtn();
-                msgPage2.openChatByUserName(userName1)
-                                .welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE);
+                var chat2 = msgPage2.openChatByUserName(userName1);
+                chat2.welcomeChatShouldHaveText(WELCOME_CHAT_PHRASE);
         }
 
         private static Stream<Arguments> user1user2() {

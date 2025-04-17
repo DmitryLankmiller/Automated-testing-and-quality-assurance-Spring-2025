@@ -5,6 +5,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 import org.openqa.selenium.By;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 public abstract class ElementWithRoot extends BaseElement {
@@ -20,7 +21,11 @@ public abstract class ElementWithRoot extends BaseElement {
         $(root).shouldBe(visible);
     }
 
-    protected SelenideElement element(By locator) {
+    protected SelenideElement elementFromRoot(By locator) {
         return $(root).$(locator);
+    }
+
+    protected ElementsCollection elementsFromRoot(By locator) {
+        return $(root).$$(locator);
     }
 }

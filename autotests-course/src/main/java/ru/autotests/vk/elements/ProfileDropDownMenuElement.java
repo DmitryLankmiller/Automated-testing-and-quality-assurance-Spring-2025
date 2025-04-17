@@ -11,7 +11,7 @@ public class ProfileDropDownMenuElement extends ElementWithRoot {
     }
 
     public LogoutWidgetElement clickLogoutBtn() {
-        element(logoutBtn).click();
+        elementFromRoot(logoutBtn).click();
         return new LogoutWidgetElement();
     }
 

@@ -18,11 +18,11 @@ public class OpenChatTest extends BaseTest {
     public void shouldOpenChat(String email, String password, String friendName) {
         var mainPage = new LoginPage().loginByEmail(email, password);
         var msgPage = mainPage.toolbar().clickMessageBtn();
-        msgPage.openChatByUserName(friendName);
+        var chat = msgPage.openChatByUserName(friendName);
         assertAll(
                 "Chat has openned",
-                () -> msgPage.messageInputShouldBeEnabled(),
-                () -> msgPage.chatNameShouldHaveText(friendName));
+                () -> chat.messageInputShouldBeEnabled(),
+                () -> chat.chatNameShouldHaveText(friendName));
 
     }
 
